@@ -66,9 +66,11 @@ pipeline {
       steps {
         script {
           sh """
-            docker run -d --name edoc-app --network ${env.NETWORK} --network-alias db -p 8080:80 ${IMAGE_NAME}:${BUILD_TAG}
+            # ✅ Use port 8081 instead of 8080
+            docker run -d --name edoc-app --network ${env.NETWORK} --network-alias db -p 8081:80 ${IMAGE_NAME}:${BUILD_TAG}
             sleep 5
-            HTTP_CODE=\$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080 || echo "000")
+            # ✅ Health check should point to 8081
+            HTTP_CODE=\$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8081 || echo "000")
             echo "HTTP status: \$HTTP_CODE"
             if [ "\$HTTP_CODE" = "000" ] || [ "\$HTTP_CODE" = "502" ] || [ "\$HTTP_CODE" = "503" ]; then
               echo "App not responding yet, tailing logs..."
@@ -93,7 +95,8 @@ pipeline {
 
   post {
     success {
-      echo "Deployment succeeded. App should be available at http://<EC2_PUBLIC_IP>:8080"
+      # ✅ Fixed message: port 8081 instead of 8080
+      echo "Deployment succeeded. App should be available at http://<EC2_PUBLIC_IP>:8081"
     }
     failure {
       script {
