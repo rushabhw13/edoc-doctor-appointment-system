@@ -95,7 +95,7 @@ pipeline {
 
   post {
     success {
-      # ✅ Fixed message: port 8081 instead of 8080
+      
       echo "Deployment succeeded. App should be available at http://<EC2_PUBLIC_IP>:8081"
     }
     failure {
