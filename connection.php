@@ -1,5 +1,5 @@
 <?php
-$servername = "db";
+$servername = "edoc-db";
 $username = "root";  
 $password = "root"; 
 $dbname = "edoc"; 
