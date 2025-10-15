@@ -6,7 +6,7 @@ services:
     ports:
       - "8080:80"  # Appliaction is available via http://localhost:8081
     volumes:
-      - .:/var/www/html  #commenting for testing
+      - .:/var/www/html  #commenting for testing jenkins
     depends_on:
       - db
 
