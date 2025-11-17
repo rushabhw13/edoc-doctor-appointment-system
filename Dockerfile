@@ -11,7 +11,7 @@ COPY . /var/www/html/
 RUN chown -R www-data:www-data /var/www/html
 
 # Exposer le port 80 pour Apache 
-# commenting for webhook updation
+# commenting for webhook updations
 EXPOSE 80
 
 # Lancer Apache
